@@ -15,7 +15,8 @@
       <div class="sticker">
         <img src="static/pic/weblogo.jpg" alt="imgdis">
       </div>
-      
+
+            <a href="posts.html">post</a>
             <a href="sign_up.html">sign up</a>
         <a href="loginpage.html">log in</a>
         <a href="about_us.html">about us </a>
@@ -50,9 +51,8 @@
     <div class="publishtext">
         <h1>publish your passions, your way
             recreate a unique and beautiful blog easily.</h1></div>
-        <button type="button" class="button">create your blog</button>
-        
-            <div class="text1">
+            <a href="{{ url_for('create_blog') }}" class="create-blog-button">Create Your Blog</a>
+             <div class="text1">
                 <h1>
                     Choose the perfect design
                 </h1>
@@ -120,7 +120,8 @@ Save the moments that matter. Blogger lets you safely store thousands of posts, 
 Whether sharing your expertise, breaking news, or whatever’s on your mind, you’re in good company on Blogger. Sign up to discover why millions of people have published their passions here
             </h5>
         </div>
-        <button class="create-blog-button">Create Your Blog</button>
+        <a href="{{ url_for('create_blog') }}" class="create-blog-button">Create Your Blog</a>
+
         <footer>
             <footer class="footer">
                 <div class="footer-left">
@@ -134,8 +135,6 @@ Whether sharing your expertise, breaking news, or whatever’s on your mind, you
         <div class="footer-right">
             Contact: +1234567890
         </div>
-        
-
         </footer>
         
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

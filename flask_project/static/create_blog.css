@@ -1,0 +1,37 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+}
+
+form {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Adjust the opacity as needed */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-image: url('/static/pic/backweb.webp'); /* New background image for the form */
+    background-size: cover;
+    background-position: center;
+    animation: slideIn 2s ease-in-out forwards; /* Adding animation */
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px); /* Slide up by 50px */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Slide back to original position */
+    }
+}

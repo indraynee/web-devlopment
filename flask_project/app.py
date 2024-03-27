@@ -1,8 +1,30 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 import re
+import pymysql
+
+pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/flask_project'
+db = SQLAlchemy(app)
 
+# Define models
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+
+# Define the BlogPost model
+# Define the BlogPost model with an explicit table name
+class BlogPost(db.Model):
+    __tablename__ = 'blogpost'  # Specify the actual table name in your database
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(20), nullable=False, default='default.jpg')
+    
 # Function to perform server-side validation
 def validate_signup_form(form_data):
     print("Validating form data...")
@@ -22,10 +44,9 @@ def validate_login_form(form_data):
     print("Validating form data...")
     errors = {}
     if not form_data.get('email'):
-        errors['email'] = 'email id is required.'
+        errors['email'] = 'Email is required.'
     if not form_data.get('password'):
-        errors['password'] = 'password is required'
-    
+        errors['password'] = 'Password is required'
     
     return errors
 
@@ -37,17 +58,14 @@ def index():
 def about():
     return render_template('about_us.html')
 
-@app.route('/loginpage.html' , methods=['GET', 'POST'])
+@app.route('/loginpage.html', methods=['GET', 'POST'])
 def login():
     errors = {}
     if request.method == 'POST':
         form_data = request.form
         errors = validate_login_form(form_data)
         if not errors:
-            # If there are no validation errors, you can process the form data here
-            # For example, you can save it to a database
-            return redirect(url_for('index'))  # Redirect to homepage after successful signup
-    # Pass the errors dictionary to the template
+            return redirect(url_for('index'))  
     return render_template('loginpage.html', errors=errors)
 
 @app.route('/sign_up.html', methods=['GET', 'POST'])
@@ -57,11 +75,24 @@ def signup():
         form_data = request.form
         errors = validate_signup_form(form_data)
         if not errors:
-            # If there are no validation errors, you can process the form data here
-            # For example, you can save it to a database
+            # If there are no validation errors, save user data to the database
+            new_user = User(first_name=form_data['first_name'], last_name=form_data['last_name'], email=form_data['email'])
+            db.session.add(new_user)
+            db.session.commit()
             return redirect(url_for('index'))  # Redirect to homepage after successful signup
     # Pass the errors dictionary to the template
     return render_template('sign_up.html', errors=errors)
+
+@app.route('/create_blog', methods=['GET', 'POST'])
+def create_blog():
+    if request.method == 'POST':
+        form_data = request.form
+        # Validate and process the form data
+        new_blog = BlogPost(title=form_data['title'], content=form_data['content'], image=form_data['image'])
+        db.session.add(new_blog)
+        db.session.commit()
+        return redirect(url_for('index'))  # Redirect to homepage after successful blog creation
+    return render_template('create_blog.html')
 
 
 if __name__ == '__main__':

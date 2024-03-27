@@ -6,7 +6,7 @@ body {
 }
 
 .background-image {
-  background-image: url('/pic/log.avif'); /* Set your background image path */
+  background-image: url('/flask_project/static/pic/log.avif'); /* Set your background image path */
   background-size: cover;
   background-position: center;
   position: absolute;
