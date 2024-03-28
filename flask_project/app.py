@@ -50,9 +50,21 @@ def validate_login_form(form_data):
     
     return errors
 
-@app.route('/')
-def index():
+@app.route('/landingpage.html')
+def landing():
     return render_template('landingpage.html')
+
+@app.route('/index.html')
+def index():
+    return render_template('index.html')
+
+@app.route('/contact.html')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/post.html')
+def post():
+    return render_template('post.html')
 
 @app.route('/about_us.html')
 def about():
@@ -79,7 +91,7 @@ def signup():
             new_user = User(first_name=form_data['first_name'], last_name=form_data['last_name'], email=form_data['email'])
             db.session.add(new_user)
             db.session.commit()
-            return redirect(url_for('index'))  # Redirect to homepage after successful signup
+            return redirect(url_for('landing'))  # Redirect to homepage after successful signup
     # Pass the errors dictionary to the template
     return render_template('sign_up.html', errors=errors)
 
