@@ -10,7 +10,7 @@ $red: #e74c3c;
 }
 
 html, body {
-    background: url(pic/backweb.webp) no-repeat center center fixed;
+    background: url(static/pic/backweb.webp) no-repeat center center fixed;
     background-size: cover;
     font-family: 'Merriweather', sans-serif;
     padding: 1em;
