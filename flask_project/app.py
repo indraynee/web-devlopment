@@ -101,7 +101,6 @@ def signup():
             return redirect(url_for('landing'))  # Redirect to homepage after successful signup
     # Pass the errors dictionary to the template
     return render_template('sign_up.html', errors=errors)
- .
 @app.route('/create_blog.html', methods=['GET', 'POST'])
 def create_blog():
     if request.method == 'POST':
