@@ -27,6 +27,8 @@ class BlogPost(db.Model):
     image = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
+    def __repr__(self):
+        return f"BlogPost(title='{self.title}', content='{self.content}', image='{self.image}')"
 # Function to perform server-side validation
 def validate_signup_form(form_data):
     print("Validating form data...")
@@ -112,6 +114,10 @@ def create_blog():
 def new_posts():
     # Fetch all blog posts from the database
     posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+
+    for post in posts:
+        post.image_url = url_for('static', filename='post_img/' + post.image)
+        
     return render_template('new_posts.html', posts=posts)
 
 
