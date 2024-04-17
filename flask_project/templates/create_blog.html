@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="/static/create_blog.css">
 </head>
 <body>
     <div class="container">
         <h1>Create Blog</h1>
-        <form action="/create_blog" method="post">
+        <form action="/create_blog" method="post" enctype="multipart/form-data">
             <div class="half left cf">
                 <input type="text" id="blog_title" name="title" placeholder="Title" required>
                 <input type="file" id="blog_image" name="image" placeholder="Upload Image">
