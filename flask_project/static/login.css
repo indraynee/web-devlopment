@@ -16,6 +16,12 @@ body {
   height: 100%;
   filter: blur(1px); /* Optional: Add a blur effect to the background */
   z-index: -1;
+} 
+.background-image img{
+  width: 100%;
+  background-size:cover;
+  background-size: cover;
+  background-position: center;
 }
 
 .container {
