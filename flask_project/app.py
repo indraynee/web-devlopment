@@ -4,6 +4,7 @@ import re
 import pymysql
 from datetime import datetime
 import os
+from werkzeug.utils import secure_filename
 
 pymysql.install_as_MySQLdb()
 

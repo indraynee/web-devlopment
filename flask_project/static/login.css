@@ -6,7 +6,7 @@ body {
 }
 
 .background-image {
-  background-image: url('/flask_project/static/pic/log.avif'); /* Set your background image path */
+  background-image: url('/flask_project/static/pic/log.avif'); 
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -14,7 +14,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  filter: blur(1px); /* Optional: Add a blur effect to the background */
+  filter: blur(1px); 
   z-index: -1;
 } 
 .background-image img{
