@@ -3,11 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 import re
 import pymysql
 from datetime import datetime
+import os
 
 pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/flask_project'
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'post_img')
 db = SQLAlchemy(app)
 
 # Define models
@@ -103,12 +105,22 @@ def signup():
 def create_blog():
     if request.method == 'POST':
         form_data = request.form
-        new_blog = BlogPost(title=form_data['title'], content=form_data['content'], image=form_data['image'])
-        db.session.add(new_blog)
-        db.session.commit()
+        image_file = request.files['image']
+
+        if image_file and allowed_file(image_file.filename):
+            filename = secure_filename(image_file.filename)  # Use a secure filename
+            image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            new_blog = BlogPost(title=form_data['title'], content=form_data['content'], image=filename)
+            db.session.add(new_blog)
+            db.session.commit()
         # Redirect to the route for displaying new posts
-        return redirect(url_for('new_posts'))
+            return redirect(url_for('new_posts'))
     return render_template('create_blog.html')
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/new_posts.html')
 def new_posts():
@@ -117,7 +129,7 @@ def new_posts():
 
     for post in posts:
         post.image_url = url_for('static', filename='post_img/' + post.image)
-        
+
     return render_template('new_posts.html', posts=posts)
 
 
