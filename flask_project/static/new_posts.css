@@ -1,0 +1,44 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fefbd8; /* cream color */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+h1 {
+    color: #333;
+}
+
+.post {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    margin-left: 2%;
+    border-radius: 1%;
+}
+
+.post h2 {
+    color: #007bff;
+    font-family: cursive; /* cursive font */
+}
+
+.post p {
+    color: #555;
+    font-family: cursive; /* cursive font */
+}
+
+.post img {
+    max-width: 30%; /* adjust as needed */
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.post-content {
+    overflow: hidden; /* clearfix for floated elements */
+}

@@ -24,7 +24,7 @@ class BlogPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    image = db.Column(db.String(20), nullable=False, default='default.jpg')
+    image = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
 # Function to perform server-side validation
@@ -108,7 +108,7 @@ def create_blog():
         return redirect(url_for('new_posts'))
     return render_template('create_blog.html')
 
-@app.route('/new_posts')
+@app.route('/new_posts.html')
 def new_posts():
     # Fetch all blog posts from the database
     posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
