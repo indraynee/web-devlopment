@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import re
 import pymysql
+from datetime import datetime
 
 pymysql.install_as_MySQLdb()
 
@@ -19,11 +20,12 @@ class User(db.Model):
 # Define the BlogPost model
 # Define the BlogPost model with an explicit table name
 class BlogPost(db.Model):
-    __tablename__ = 'blogpost'  # Specify the actual table name in your database
+    __tablename__ = 'blogpost'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     image = db.Column(db.String(20), nullable=False, default='default.jpg')
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
 # Function to perform server-side validation
 def validate_signup_form(form_data):
@@ -99,12 +101,18 @@ def signup():
 def create_blog():
     if request.method == 'POST':
         form_data = request.form
-        # Validate and process the form data
         new_blog = BlogPost(title=form_data['title'], content=form_data['content'], image=form_data['image'])
         db.session.add(new_blog)
         db.session.commit()
-        return redirect(url_for('index'))  # Redirect to homepage after successful blog creation
+        # Redirect to the route for displaying new posts
+        return redirect(url_for('new_posts'))
     return render_template('create_blog.html')
+
+@app.route('/new_posts')
+def new_posts():
+    # Fetch all blog posts from the database
+    posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+    return render_template('new_posts.html', posts=posts)
 
 
 if __name__ == '__main__':

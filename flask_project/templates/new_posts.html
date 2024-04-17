@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Posts</title>
+</head>
+<body>
+    <h1>New Posts</h1>
+    <div>
+        {% for post in posts %}
+        <div>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+            <img src="{{ url_for('static', filename='post_img/' + post.image) }}" alt="Post Image">
+            <p>Posted on: {{ post.created_at }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
