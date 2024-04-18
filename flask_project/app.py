@@ -115,7 +115,7 @@ def create_blog():
             db.session.add(new_blog)
             db.session.commit()
         # Redirect to the route for displaying new posts
-            return redirect(url_for('new_posts.html'))
+            return redirect(url_for('new_posts'))
     return render_template('create_blog.html')
 
 def allowed_file(filename):
